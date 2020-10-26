@@ -10,7 +10,7 @@ Widget buildAppBar(BuildContext context, String gameTitle,
     ),
     actions: <Widget>[
       IconButton(
-        icon: const Icon(Icons.add_alert),
+        icon: const Icon(Icons.refresh),
         onPressed: () {
           onPressdFunction();
         },
