@@ -15,6 +15,12 @@ class _TicTacToeState extends State<TicTacToe> {
     ["", "", ""]
   ];
 
+  List<List<Color>> boardBackgroundColor = [
+    [Colors.white, Colors.white, Colors.white],
+    [Colors.white, Colors.white, Colors.white],
+    [Colors.white, Colors.white, Colors.white],
+  ];
+
   bool isGameOver = false;
   String currentPlayer = "O";
 
@@ -23,6 +29,8 @@ class _TicTacToeState extends State<TicTacToe> {
       if (board[x][y].isEmpty) {
         setState(() {
           board[x][y] = currentPlayer;
+          boardBackgroundColor[x][y] =
+              currentPlayer == "O" ? Colors.blue[100] : Colors.green[100];
         });
       }
 
@@ -59,6 +67,11 @@ class _TicTacToeState extends State<TicTacToe> {
         ["", "", ""],
         ["", "", ""]
       ];
+      boardBackgroundColor = [
+        [Colors.white, Colors.white, Colors.white],
+        [Colors.white, Colors.white, Colors.white],
+        [Colors.white, Colors.white, Colors.white],
+      ];
       isGameOver = false;
       currentPlayer = "O";
     });
@@ -79,13 +92,20 @@ class _TicTacToeState extends State<TicTacToe> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[_buildBoard()],
       ),
-      if (isGameOver) Text("Game Over, $currentPlayer Win!"),
+      if (isGameOver)
+        Text(
+          "Game Over, $currentPlayer Win!",
+          style: TextStyle(fontSize: 30),
+        ),
       Expanded(
           child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.0),
-                child: Text('Current Player: $currentPlayer'),
+                child: Text(
+                  'Current Player: $currentPlayer',
+                  style: TextStyle(fontSize: 20),
+                ),
               )))
     ]);
   }
@@ -118,12 +138,16 @@ class _TicTacToeState extends State<TicTacToe> {
         },
         child: (Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: boardBackgroundColor[x][y],
             border: border,
           ),
           height: height,
           width: width,
-          child: Center(child: Text(board[x][y].toString())),
+          child: Center(
+              child: Text(
+            board[x][y].toString(),
+            style: TextStyle(fontSize: 30),
+          )),
         )));
   }
 
