@@ -101,8 +101,8 @@ class _MineSweeperState extends State<MineSweeper> {
   Widget _buildBox(int x, int y) {
     BoxBorder border = Border();
     BorderSide borderStyle = BorderSide(width: 1, color: Colors.black26);
-    double height = 80;
-    double width = 80;
+    double height = 70;
+    double width = 70;
 
     border = Border(
         top: borderStyle,
