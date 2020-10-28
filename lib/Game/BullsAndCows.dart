@@ -11,7 +11,8 @@ class BullsAndCows extends StatefulWidget {
 }
 
 class _BullsAndCowsState extends State<BullsAndCows> {
-  List<int> targetNumbers = [9, 5, 2, 7];
+  List<int> numberList = List<int>.generate(10, (i) => i);
+  List<int> targetNumbers = [];
   List<int> inputNumbers = [9, 5, 2, 7];
   bool isGameOver = false;
   Random random = new Random();
@@ -26,7 +27,14 @@ class _BullsAndCowsState extends State<BullsAndCows> {
 
   _resetBoard() {
     setState(() {
-      targetNumbers = targetNumbers.map((e) => random.nextInt(10)).toList();
+      numberList.shuffle();
+      targetNumbers = numberList.sublist(0, 4);
+    });
+  }
+
+  _handleInput(index, newValue) {
+    setState(() {
+      inputNumbers[index] = newValue;
     });
   }
 
@@ -43,15 +51,18 @@ class _BullsAndCowsState extends State<BullsAndCows> {
         isGameOver = true;
       }
     });
-
-    // check 2A2B or ...
-    // insert guess and result to boardGuessAndResult
   }
 
   String _checkBullsAndCows() {
-    // targetNumbers
-    // inputNumbers
-    return "2A1B";
+    int countA = 0, countB = 0;
+    inputNumbers.asMap().forEach((index, element) {
+      if (targetNumbers[index] == element) {
+        countA++;
+      } else if (targetNumbers.indexOf(element) != -1) {
+        countB++;
+      }
+    });
+    return "${countA}A${countB}B";
   }
 
   Widget _buildResultTable(BuildContext context) {
@@ -89,14 +100,14 @@ class _BullsAndCowsState extends State<BullsAndCows> {
                 inputNumbers.length,
                 (index) => NumberPicker.integer(
                     initialValue: inputNumbers[index],
+                    infiniteLoop: true,
                     minValue: 0,
                     maxValue: 9,
-                    onChanged: (newValue) =>
-                        setState(() => inputNumbers[index] = newValue)))),
+                    onChanged: (newValue) => _handleInput(index, newValue)))),
         RaisedButton(
             color: Colors.greenAccent,
             animationDuration: Duration(seconds: 2),
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
             child: Text('Submit'),
             onPressed: () {
               _handleSubmit();
@@ -104,7 +115,7 @@ class _BullsAndCowsState extends State<BullsAndCows> {
         _buildResultTable(context),
         if (isGameOver)
           Text(
-            "Game Over!",
+            "Finish!",
             style: TextStyle(fontSize: 30),
           ),
         Expanded(
@@ -113,7 +124,7 @@ class _BullsAndCowsState extends State<BullsAndCows> {
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 20.0),
                   child: Text(
-                    "inputNumbers: ${inputNumbers.join(",")} ; targetNumbers: ${targetNumbers.join(",")}",
+                    "Count: ${boardGuessAndResult.length}",
                     style: TextStyle(fontSize: 14),
                   ),
                 )))
@@ -124,7 +135,7 @@ class _BullsAndCowsState extends State<BullsAndCows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.blueGrey[200],
       appBar: buildAppBar(context, "2A1B", _resetBoard),
       body: _buildBody(context),
     );
