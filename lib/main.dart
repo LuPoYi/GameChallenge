@@ -3,13 +3,14 @@ import 'package:GameChallenge/Menu.dart';
 import 'package:GameChallenge/About.dart';
 import 'package:GameChallenge/Game/TicTacToe.dart';
 import 'package:GameChallenge/Game/MineSweeper.dart';
+import 'package:GameChallenge/Game/BullsAndCows.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static List<String> gameList = ['TicTacToe', 'MineSweeper'];
+  static List<String> gameList = ['TicTacToe', 'MineSweeper', 'BullsAndCows'];
 
   // This widget is the root of your application.
   @override
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/about': (BuildContext context) => About(),
         '/tictactoe': (BuildContext context) => TicTacToe(),
         '/minesweeper': (BuildContext context) => MineSweeper(),
+        '/bullsandcows': (BuildContext context) => BullsAndCows(),
       },
     );
   }
