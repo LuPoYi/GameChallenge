@@ -97,16 +97,7 @@ class _TicTacToeState extends State<TicTacToe> {
           "Game Over, $currentPlayer Win!",
           style: TextStyle(fontSize: 30),
         ),
-      Expanded(
-          child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  'Current Player: $currentPlayer',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )))
+      _buildBottomInfo()
     ]);
   }
 
@@ -118,6 +109,19 @@ class _TicTacToeState extends State<TicTacToe> {
         children: new List.generate(3, (y) => _buildBox(x, y)),
       ),
     ));
+  }
+
+  Widget _buildBottomInfo() {
+    return Expanded(
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Text(
+                'Current Player: $currentPlayer',
+                style: TextStyle(fontSize: 20),
+              ),
+            )));
   }
 
   Widget _buildBox(int x, int y) {

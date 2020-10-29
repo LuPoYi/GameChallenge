@@ -75,17 +75,21 @@ class _MineSweeperState extends State<MineSweeper> {
           "Game Over!",
           style: TextStyle(fontSize: 30),
         ),
-      Expanded(
-          child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  'Rest: $restItem',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )))
+      _buildBottomInfo()
     ]);
+  }
+
+  Widget _buildBottomInfo() {
+    return Expanded(
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Text(
+                'Rest: $restItem',
+                style: TextStyle(fontSize: 20),
+              ),
+            )));
   }
 
   Widget _buildBoard() {

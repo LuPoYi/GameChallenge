@@ -29,6 +29,8 @@ class _BullsAndCowsState extends State<BullsAndCows> {
     setState(() {
       numberList.shuffle();
       targetNumbers = numberList.sublist(0, 4);
+
+      boardGuessAndResult = [];
     });
   }
 
@@ -69,37 +71,44 @@ class _BullsAndCowsState extends State<BullsAndCows> {
     return Expanded(
         child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: DataTable(
-                columns: ['#', 'Guess', 'Result']
-                    .map(
-                      (title) => DataColumn(
-                        label: Text(
-                          title,
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                rows: boardGuessAndResult.reversed
-                    .toList()
-                    .map((items) => DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text(items[0].toString())),
-                            DataCell(Text(items[1])),
-                            DataCell(Text(items[2])),
-                          ],
-                        ))
-                    .toList())));
+            child: Theme(
+                data:
+                    Theme.of(context).copyWith(dividerColor: Colors.blueAccent),
+                child: DataTable(
+                    columns: ['#', 'Guess', 'Result']
+                        .map(
+                          (title) => DataColumn(
+                            label: Text(
+                              title,
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    rows: boardGuessAndResult.reversed
+                        .toList()
+                        .map((items) => DataRow(
+                              cells: <DataCell>[
+                                DataCell(Text(items[0].toString())),
+                                DataCell(Text(items[1])),
+                                DataCell(Text(items[2],
+                                    style:
+                                        TextStyle(color: Colors.deepPurple))),
+                              ],
+                            ))
+                        .toList()))));
   }
 
   Widget _buildBody(BuildContext context) {
     return Column(
       children: [
         Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
                 inputNumbers.length,
                 (index) => NumberPicker.integer(
                     initialValue: inputNumbers[index],
+                    listViewWidth: 80,
                     infiniteLoop: true,
                     minValue: 0,
                     maxValue: 9,
@@ -118,18 +127,22 @@ class _BullsAndCowsState extends State<BullsAndCows> {
             "Finish!",
             style: TextStyle(fontSize: 30),
           ),
-        Expanded(
-            child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
-                  child: Text(
-                    "Count: ${boardGuessAndResult.length}",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                )))
+        _buildBottomInfo()
       ],
     );
+  }
+
+  Widget _buildBottomInfo() {
+    return Expanded(
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Text(
+                "Count: ${boardGuessAndResult.length}",
+                style: TextStyle(fontSize: 14),
+              ),
+            )));
   }
 
   @override
