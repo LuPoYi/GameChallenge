@@ -5,6 +5,7 @@ import 'package:GameChallenge/Game/TicTacToe.dart';
 import 'package:GameChallenge/Game/MineSweeper.dart';
 import 'package:GameChallenge/Game/BullsAndCows.dart';
 import 'package:GameChallenge/Game/PegSolitaire.dart';
+import 'package:GameChallenge/Game/GuessNumber.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
     'TicTacToe',
     'MineSweeper',
     'BullsAndCows',
-    'PegSolitaire'
+    'PegSolitaire',
+    'GuessNumber',
   ];
 
   // This widget is the root of your application.
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/minesweeper': (BuildContext context) => MineSweeper(),
         '/bullsandcows': (BuildContext context) => BullsAndCows(),
         '/pegsolitaire': (BuildContext context) => PegSolitaire(),
+        '/guessnumber': (BuildContext context) => GuessNumber(),
       },
     );
   }
