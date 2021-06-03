@@ -1,4 +1,4 @@
-package com.example.GameChallenge
+package com.poyi.GameChallenge
 
 import io.flutter.embedding.android.FlutterActivity
 
